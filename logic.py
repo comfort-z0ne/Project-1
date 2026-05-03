@@ -158,7 +158,7 @@ class mainWindow(Ui_MainWindow):
         if balance >= num:
             balance -= num
             self.accounts[self.current_account]["Balance"] = balance
-            self.ui.label_top_w.setText(f"Withdrew ${num}.")
+            self.ui.label_top_w.setText(f"Withdrew ${num:.2f}.")
             self.ui.label_bottom_w.setText(f"Balance: ${balance:.2f}")
             self.updateAccounts()
         else:
@@ -186,7 +186,7 @@ class mainWindow(Ui_MainWindow):
         balance = float(self.accounts[self.current_account]["Balance"])
         balance += num
         self.accounts[self.current_account]["Balance"] = balance
-        self.ui.label_top_d.setText(f"Deposited ${num}.")
+        self.ui.label_top_d.setText(f"Deposited ${num:.2f}.")
         self.ui.label_bottom_d.setText(f"Balance: ${balance:.2f}")
         self.updateAccounts()
 
@@ -240,15 +240,26 @@ class mainWindow(Ui_MainWindow):
 
     # Navigation functions
     def gotoLogin(self):
+        self.ui.errorLabel.setText("")
         self.ui.stackedWidget.setCurrentWidget(self.ui.login)
     def gotoMain(self):
         self.ui.label_top.setText(f"Welcome {self.accounts[self.current_account]['Name']}!")
         self.ui.stackedWidget.setCurrentWidget(self.ui.main)
     def gotoWithdraw(self):
+        self.ui.inputLine_w.setText("")
+        self.ui.label_top_w.setText("You are now withdrawing.")
+        self.ui.label_bottom_w.setText("Please select an option.")
         self.ui.stackedWidget.setCurrentWidget(self.ui.withdraw)
     def gotoDeposit(self):
+        self.ui.inputLine_d.setText("")
+        self.ui.label_top_d.setText("You are now depositing.")
+        self.ui.label_bottom_d.setText("Please select an option.")
         self.ui.stackedWidget.setCurrentWidget(self.ui.deposit)
     def gotoTransfer(self):
+        self.ui.errorLabel_t.setText("")
+        self.ui.inputLine_t.setText("")
+        self.ui.label_top_t.setText("You are now transferring.")
+        self.ui.label_bottom_t.setText("Please select an option.")
         self.ui.stackedWidget.setCurrentWidget(self.ui.transfer)
     def gotoBalance(self):
         self.ui.label_bottom_b.setText(f"${float(self.accounts[self.current_account]['Balance']):.2f}")
